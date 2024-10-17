@@ -2,7 +2,11 @@ import { useState } from 'react'
 import './App.css'
 
 export default function App() {
-	const points = [200, 400, 600, 800, 1000]
+	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
+	
+	const [mode, setMode] = useState('Jeopardy');
+	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
+	
 	const sound = new Audio("sound.mp3");
 	const [score, setScore] = useState([]);
 	const [thisPoints, setThisPoints] = useState(0);
@@ -10,6 +14,18 @@ export default function App() {
 		sound.play(); 
 		sound.currentTime = 0;
 		// TODO: SHOW the points array and correct/incorrect buttons
+	}
+	const onChangeValue2 = (e) => {
+		setMode(e.target.value);
+		if (e.target.value === 'Jeopardy') {
+			setPoints([200, 400, 600, 800, 1000]);
+		} else if (e.target.value === 'Double Jeopardy') {
+			setPoints([400, 800, 1200, 1600, 2000]);
+		} else {
+			setPoints([0]);
+		}
+		const pointsRadio = document.getElementsByName('points');
+		pointsRadio.forEach(point => point.checked = false);
 	}
 	const onChangeValue = (e) => {
 		setThisPoints(Number(e.target.value));
@@ -23,27 +39,43 @@ export default function App() {
 		setScore(score => [...score, operator === '+' ? thisPoints : thisPoints * -1]);
 		// TODO: HIDE the points array and correct/incorrect buttons
 	}
+	const handleWager = (e) => {
+		setThisPoints(Number(e.target.value));
+	}
+
 	return (
 		<>
 			<button onClick={buzzIn}>Buzz In</button>
+			<div id="mode">
+				<fieldset onChange={onChangeValue2}>
+					<legend>Mode:</legend>
+					{modes.map((mode, index) => (
+					<label key={index}>
+						<input type="radio" id={"mode-" + mode} name="mode" value={mode} defaultChecked={mode === 'Jeopardy'} />
+						{mode}
+					</label>
+					))}
+				</fieldset>
+			</div>
 			<div id="points">
+				{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
 				<fieldset onChange={onChangeValue}>
 					<legend>Points for this Clue:</legend>
 					{points.map((point, index) => (
-					<div key={index}>
-						<label>
-							<input 
-								type="radio" 
-								id={"point-" + point} 
-								name="points" 
-								value={point}
-								// defaultChecked={index === 0}
-							/>
-							${point}
-						</label>
-					</div>
+					<label key={index}>
+						<input type="radio" id={"point-" + point} name="points" value={point} />
+						${point}
+					</label>
 					))}
 				</fieldset>
+				)}
+				{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
+				<fieldset>
+					<legend>Your Wager:</legend>
+					<input type="number" id="wager" min="0" step="100" onChange={handleWager} />
+				</fieldset>
+				)}
+				
 			</div>
 			<div id="addsub">
 				<fieldset>

@@ -48,7 +48,6 @@ export default function App() {
 
 	return (
 		<>
-			<button onClick={buzzIn}>Buzz In</button>
 			<div id="score">{sum}</div>
 			
 			{showPoints && (
@@ -107,6 +106,7 @@ export default function App() {
 				</div>
 			)}
 			
+			<button onClick={buzzIn}>Buzz In</button>
 
 		</>
 	)

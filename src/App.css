@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+
 body {
 	background-color: #535bf2;
 	background-image: url('./background.png');
@@ -118,3 +120,13 @@ body {
 	}
   }
   
+  .score {
+	color: yellow;
+	font-family: "League Gothic", sans-serif;
+	font-optical-sizing: auto;
+	font-size: 72px;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+	font-weight: 400;
+	text-shadow: 5px 5px 5px black;
+  }

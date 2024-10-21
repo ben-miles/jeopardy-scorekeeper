@@ -48,7 +48,7 @@ export default function App() {
 
 	return (
 		<>
-			<div id="score">{sum}</div>
+			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
 			
 			{showPoints && (
 			<>

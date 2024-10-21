@@ -4,6 +4,8 @@ import './App.css'
 export default function App() {
 	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
 	
+	const [showPoints, setShowPoints] = useState(false); 
+
 	const [mode, setMode] = useState('Jeopardy');
 	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
 	
@@ -13,7 +15,7 @@ export default function App() {
 	const buzzIn = () => {
 		sound.play(); 
 		sound.currentTime = 0;
-		// TODO: SHOW the points array and correct/incorrect buttons
+		setShowPoints(true);
 	}
 	const onChangeValue2 = (e) => {
 		setMode(e.target.value);
@@ -37,7 +39,7 @@ export default function App() {
 			return;
 		}
 		setScore(score => [...score, operator === '+' ? thisPoints : thisPoints * -1]);
-		// TODO: HIDE the points array and correct/incorrect buttons
+		setShowPoints(false);
 	}
 	const handleWager = (e) => {
 		setThisPoints(Number(e.target.value));
@@ -46,44 +48,6 @@ export default function App() {
 	return (
 		<>
 			<button onClick={buzzIn}>Buzz In</button>
-			<div id="mode">
-				<fieldset onChange={onChangeValue2}>
-					<legend>Mode:</legend>
-					{modes.map((mode, index) => (
-					<label key={index}>
-						<input type="radio" id={"mode-" + mode} name="mode" value={mode} defaultChecked={mode === 'Jeopardy'} />
-						{mode}
-					</label>
-					))}
-				</fieldset>
-			</div>
-			<div id="points">
-				{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
-				<fieldset onChange={onChangeValue}>
-					<legend>Points for this Clue:</legend>
-					{points.map((point, index) => (
-					<label key={index}>
-						<input type="radio" id={"point-" + point} name="points" value={point} />
-						${point}
-					</label>
-					))}
-				</fieldset>
-				)}
-				{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
-				<fieldset>
-					<legend>Your Wager:</legend>
-					<input type="number" id="wager" min="0" step="100" onChange={handleWager} />
-				</fieldset>
-				)}
-				
-			</div>
-			<div id="addsub">
-				<fieldset>
-					<legend>Your Response:</legend>
-					<button onClick={handleClick('+')}>Correct</button>
-					<button onClick={handleClick('-')}>Incorrect</button>
-				</fieldset>
-			</div>
 			<div id="history">
 				<ul>
 					{score.map((score, index) => (
@@ -92,6 +56,55 @@ export default function App() {
 				</ul>
 			</div>
 			<div id="score">{sum}</div>
+			
+			{showPoints && (
+			<>
+
+				<div id="mode">
+					<fieldset onChange={onChangeValue2}>
+						<legend>Mode:</legend>
+						{modes.map((mode, index) => (
+						<label key={index}>
+							<input type="radio" id={"mode-" + mode} name="mode" value={mode} defaultChecked={mode === 'Jeopardy'} />
+							{mode}
+						</label>
+						))}
+					</fieldset>
+				</div>
+
+				<div id="points">
+					{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
+					<fieldset onChange={onChangeValue}>
+						<legend>Points for this Clue:</legend>
+						{points.map((point, index) => (
+						<label key={index}>
+							<input type="radio" id={"point-" + point} name="points" value={point} />
+							${point}
+						</label>
+						))}
+					</fieldset>
+					)}
+					{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
+					<fieldset>
+						<legend>Your Wager:</legend>
+						<input type="number" id="wager" min="0" step="100" onChange={handleWager} />
+					</fieldset>
+					)}
+				</div>
+
+				<div id="addsub">
+					<fieldset>
+						<legend>Your Response:</legend>
+						<button onClick={handleClick('+')}>Correct</button>
+						<button onClick={handleClick('-')}>Incorrect</button>
+					</fieldset>
+				</div>
+
+			</>
+			)}
+
+			
+
 		</>
 	)
 }

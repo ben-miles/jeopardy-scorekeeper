@@ -5,6 +5,7 @@ export default function App() {
 	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
 	
 	const [showPoints, setShowPoints] = useState(false); 
+	const [showHistory, setShowHistory] = useState(false); 
 
 	const [mode, setMode] = useState('Jeopardy');
 	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
@@ -48,13 +49,6 @@ export default function App() {
 	return (
 		<>
 			<button onClick={buzzIn}>Buzz In</button>
-			<div id="history">
-				<ul>
-					{score.map((score, index) => (
-					<li key={index}>{score}</li>
-					))}
-				</ul>
-			</div>
 			<div id="score">{sum}</div>
 			
 			{showPoints && (
@@ -103,6 +97,15 @@ export default function App() {
 			</>
 			)}
 
+			{showHistory && (
+				<div id="history">
+					<ul>
+						{score.map((score, index) => (
+						<li key={index}>{score}</li>
+						))}
+					</ul>
+				</div>
+			)}
 			
 
 		</>

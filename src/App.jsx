@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
+import IconMenu from './IconMenu.jsx'
 
 export default function App() {
 	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
 	
+	const [showMenu, setShowMenu] = useState(false); 
 	const [showPoints, setShowPoints] = useState(false); 
 	const [showHistory, setShowHistory] = useState(false); 
 
@@ -46,10 +48,24 @@ export default function App() {
 		setThisPoints(Number(e.target.value));
 	}
 
+	const toggleMenu = () => {
+		setShowMenu(!showMenu);
+	}
+
 	return (
 		<>
-			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
+			<button className="button button-menu" onClick={toggleMenu}>
+				<IconMenu />
+				<span className="hidden">Menu</span>
+			</button>
+
+			{showMenu && (
+				<div className="modal modal-menu">
+					Menu
+				</div>
+			)}
 			
+			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
 			{showPoints && (
 			<>
 

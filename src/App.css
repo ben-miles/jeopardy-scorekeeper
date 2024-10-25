@@ -145,4 +145,33 @@ body {
 	white-space: nowrap; 
 	width: 1px; 
   }
+
+  .button-menu {
+	background-color: blue;
+	border: 0;
+	border-radius: 50%;
+	outline: none;
+	height: 48px;
+	padding: 10px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 48px;
+	z-index: 10;
+  }
+  .button-menu .icon-menu {
+	fill: white;
+	transition: fill 0.125s ease-in-out;
+  }
+  .button-menu:hover .icon-menu {
+	fill: #aaadec;
+  }
+
+  .modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: white;
   }

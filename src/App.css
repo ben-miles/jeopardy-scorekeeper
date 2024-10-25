@@ -130,3 +130,19 @@ body {
 	font-weight: 400;
 	text-shadow: 5px 5px 5px black;
   }
+
+  svg.icon {
+	height: auto;
+	width: 100%;
+  }
+
+  .hidden:not(:focus):not(:active) {
+	clip: rect(0 0 0 0); 
+	clip-path: inset(100%); 
+	height: 1px; 
+	overflow: hidden; 
+	position: absolute; 
+	white-space: nowrap; 
+	width: 1px; 
+  }
+  }

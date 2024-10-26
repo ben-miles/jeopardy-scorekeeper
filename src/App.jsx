@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import IconMenu from './IconMenu.jsx'
+import IconX from './IconX.jsx'
 
 export default function App() {
 	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
@@ -52,6 +53,10 @@ export default function App() {
 		setShowMenu(!showMenu);
 	}
 
+	const closeModal = () => {
+		setShowPoints(false);
+	}
+
 	return (
 		<>
 			<button className="button button-menu" onClick={toggleMenu}>
@@ -67,7 +72,11 @@ export default function App() {
 			
 			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
 			{showPoints && (
-			<>
+			<div className="modal points">
+				<button className="button button-modal" onClick={closeModal}>
+					<IconX />
+					<span className="hidden">Close</span>
+				</button>
 
 				<div id="mode">
 					<fieldset onChange={onChangeValue2}>
@@ -109,7 +118,7 @@ export default function App() {
 					</fieldset>
 				</div>
 
-			</>
+			</div>
 			)}
 
 			{showHistory && (

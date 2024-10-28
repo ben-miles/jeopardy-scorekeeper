@@ -127,6 +127,26 @@ fieldset {
 	flex-wrap: wrap;
 	gap: 5px;
 }
+
+label {
+	cursor: pointer;
+}
+
+label input[type="radio"] {
+	display: none;
+}
+
+label span {
+	background-color: #444;
+	border-radius: 8px;
+	color: white;
+	display: block;
+	padding: 5px;
+}
+
+label input[type="radio"]:checked + span {
+	background-color: blue;
+}
   
 .score {
 	color: yellow;

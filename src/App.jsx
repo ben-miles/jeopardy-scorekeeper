@@ -87,7 +87,7 @@ export default function App() {
 						{modes.map((mode, index) => (
 						<label key={index}>
 							<input type="radio" id={"mode-" + mode} name="mode" value={mode} defaultChecked={mode === 'Jeopardy'} />
-							{mode}
+							<span>{mode}</span>
 						</label>
 						))}
 					</fieldset>
@@ -100,7 +100,7 @@ export default function App() {
 						{points.map((point, index) => (
 						<label key={index}>
 							<input type="radio" id={"point-" + point} name="points" value={point} />
-							${point}
+							<span>${point}</span>
 						</label>
 						))}
 					</fieldset>

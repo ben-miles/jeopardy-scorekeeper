@@ -119,6 +119,14 @@ button:focus-visible {
 		background-color: #f9f9f9;
 	}
 }
+
+fieldset {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 5px;
+}
   
 .score {
 	color: yellow;

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import IconMenu from './IconMenu.jsx'
+import IconCheckmark from './IconCheckmark.jsx'
+import IconReset from './IconReset.jsx'
 import IconX from './IconX.jsx'
 
 export default function App() {
@@ -71,6 +73,7 @@ export default function App() {
 			)}
 			
 			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
+
 			{showPoints && (
 			<div className="modal points">
 				<button className="button button-modal" onClick={closeModal}>
@@ -113,8 +116,14 @@ export default function App() {
 				<div id="addsub">
 					<fieldset>
 						<legend>Your Response:</legend>
-						<button onClick={handleClick('+')}>Correct</button>
-						<button onClick={handleClick('-')}>Incorrect</button>
+						<button className="button" onClick={handleClick('+')}>
+							<IconCheckmark />
+							<span>Correct</span>
+						</button>
+						<button className="button" onClick={handleClick('-')}>
+							<IconX />
+							<span>Incorrect</span>
+						</button>
 					</fieldset>
 				</div>
 

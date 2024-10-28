@@ -147,21 +147,28 @@ svg.icon {
 }
 
 .button {
+	align-items: center;
 	background-color: blue;
 	border: 0;
-	border-radius: 50%;
+	display: flex;
+	gap: 5px;
+	justify-content: center;
 	outline: none;
-	height: 48px;
 	padding: 10px;
+}
+.button-menu, 
+.button-modal {
+	border-radius: 50%;
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	width: 48px;
 	z-index: 10;
 }
 .button svg {
 	fill: white;
 	transition: fill 0.125s ease-in-out;
+	width: 40px;
+	height: auto;
 }
 .button:hover svg {
 	fill: #aaadec;

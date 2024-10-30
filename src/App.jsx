@@ -38,10 +38,10 @@ export default function App() {
 		}
 		setShowPoints(true);
 	}
-	const onChangeValue3 = (e) => {
+	const handleSetSound = (e) => {
 		setSound(e.target.value);
 	}
-	const onChangeValue2 = (e) => {
+	const handleSetMode = (e) => {
 		setMode(e.target.value);
 		if (e.target.value === 'Jeopardy') {
 			setPoints([200, 400, 600, 800, 1000]);
@@ -53,7 +53,7 @@ export default function App() {
 		const pointsRadio = document.getElementsByName('points');
 		pointsRadio.forEach(point => point.checked = false);
 	}
-	const onChangeValue = (e) => {
+	const handleSetPoints = (e) => {
 		setThisPoints(Number(e.target.value));
 	}
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
@@ -88,7 +88,7 @@ export default function App() {
 				<div className="modal modal-menu">
 					
 					<div id="sound">
-					<fieldset onChange={onChangeValue3}>
+					<fieldset onChange={handleSetSound}>
 						<legend>Buzz-In Sound:</legend>
 						{sounds.map((sound, index) => (
 						<label key={index}>
@@ -113,7 +113,7 @@ export default function App() {
 				</button>
 
 				<div id="mode">
-					<fieldset onChange={onChangeValue2}>
+					<fieldset onChange={handleSetMode}>
 						<legend>Mode:</legend>
 						{modes.map((mode, index) => (
 						<label key={index}>
@@ -126,7 +126,7 @@ export default function App() {
 
 				<div id="points">
 					{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
-					<fieldset onChange={onChangeValue}>
+					<fieldset onChange={handleSetPoints}>
 						<legend>Points for this Clue:</legend>
 						{points.map((point, index) => (
 						<label key={index}>

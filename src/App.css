@@ -213,6 +213,9 @@ label:hover svg {
 	top: 0;
 }
 
+#score-history fieldset {
+	flex-direction: column;
+}
 
 svg {
 	display: block;

@@ -105,10 +105,6 @@ export default function App() {
 					<div id="score-history">
 						<fieldset>
 							<legend>Score History:</legend>
-							<button className="button" onClick={handleReset}>
-								<IconReset />
-								<span>Reset</span>
-							</button>
 
 							<div id="history">
 								<ul>
@@ -117,6 +113,11 @@ export default function App() {
 									))}
 								</ul>
 							</div>
+
+							<button className="button" onClick={handleReset}>
+								<IconReset />
+								<span>Reset</span>
+							</button>							
 
 						</fieldset>
 

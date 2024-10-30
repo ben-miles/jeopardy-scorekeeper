@@ -212,3 +212,8 @@ label:hover svg {
 	right: 0;
 	top: 0;
 }
+
+
+svg {
+	display: block;
+}

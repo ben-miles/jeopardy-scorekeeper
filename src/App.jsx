@@ -4,9 +4,21 @@ import IconMenu from './IconMenu.jsx'
 import IconCheckmark from './IconCheckmark.jsx'
 import IconReset from './IconReset.jsx'
 import IconX from './IconX.jsx'
+import IconMute from './IconMute.jsx'
+import IconAlien from './IconAlien.jsx'
+import IconCat from './IconCat.jsx'
+import IconDog from './IconDog.jsx'
+import IconRobot from './IconRobot.jsx'
 
 export default function App() {
 	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
+	const sounds = [
+		{ id: 'None', icon: <IconMute /> }, 
+		{ id: 'Alien', icon: <IconAlien />}, 
+		{ id: 'Cat', icon: <IconCat /> }, 
+		{ id: 'Dog', icon: <IconDog /> }, 
+		{ id: 'Robot', icon: <IconRobot /> },	
+	];
 	
 	const [showMenu, setShowMenu] = useState(false); 
 	const [showPoints, setShowPoints] = useState(false); 
@@ -15,13 +27,19 @@ export default function App() {
 	const [mode, setMode] = useState('Jeopardy');
 	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
 	
-	const sound = new Audio("sound.mp3");
+	const [sound, setSound] = useState('None');
 	const [score, setScore] = useState([]);
 	const [thisPoints, setThisPoints] = useState(0);
 	const buzzIn = () => {
-		sound.play(); 
-		sound.currentTime = 0;
+		if (sound !== 'None') {
+			const soundFile = new Audio(sound.toLowerCase() + ".mp3");
+			soundFile.play(); 
+			soundFile.currentTime = 0;
+		}
 		setShowPoints(true);
+	}
+	const onChangeValue3 = (e) => {
+		setSound(e.target.value);
 	}
 	const onChangeValue2 = (e) => {
 		setMode(e.target.value);
@@ -68,7 +86,20 @@ export default function App() {
 
 			{showMenu && (
 				<div className="modal modal-menu">
-					Menu
+					
+					<div id="sound">
+					<fieldset onChange={onChangeValue3}>
+						<legend>Buzz-In Sound:</legend>
+						{sounds.map((sound, index) => (
+						<label key={index}>
+							<input type="radio" id={"sound-" + sound.id} name="sound" value={sound.id} defaultChecked={sound.id === 'None'} />
+							{sound.icon}
+							<span className="hidden">{sound.id}</span>
+						</label>
+						))}
+					</fieldset>
+					</div>
+
 				</div>
 			)}
 			
@@ -99,7 +130,7 @@ export default function App() {
 						<legend>Points for this Clue:</legend>
 						{points.map((point, index) => (
 						<label key={index}>
-							<input type="radio" id={"point-" + point} name="points" value={point} />
+							<input type="radio" id={"point-" + point} name="points" value={point} defaultChecked={index === 0}/>
 							<span>${point}</span>
 						</label>
 						))}

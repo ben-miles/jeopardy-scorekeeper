@@ -136,7 +136,7 @@ label input[type="radio"] {
 	display: none;
 }
 
-label span {
+label {
 	background-color: #444;
 	border-radius: 8px;
 	color: white;
@@ -144,8 +144,8 @@ label span {
 	padding: 5px;
 }
 
-label input[type="radio"]:checked + span {
-	background-color: blue;
+label:has(input[type="radio"]:checked) {
+	background: blue;
 }
   
 .score {
@@ -157,11 +157,6 @@ label input[type="radio"]:checked + span {
 	font-variation-settings: "wdth" 100;
 	font-weight: 400;
 	text-shadow: 5px 5px 5px black;
-}
-
-svg.icon {
-	height: auto;
-	width: 100%;
 }
 
 .hidden:not(:focus):not(:active) {
@@ -192,13 +187,15 @@ svg.icon {
 	right: 10px;
 	z-index: 10;
 }
-.button svg {
+.button svg, 
+label svg {
 	fill: white;
 	transition: fill 0.125s ease-in-out;
 	width: 40px;
 	height: auto;
 }
-.button:hover svg {
+.button:hover svg,
+label:hover svg {
 	fill: #aaadec;
 }
 

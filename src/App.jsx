@@ -21,8 +21,7 @@ export default function App() {
 	];
 	
 	const [showMenu, setShowMenu] = useState(false); 
-	const [showPoints, setShowPoints] = useState(false); 
-	const [showHistory, setShowHistory] = useState(false); 
+	const [showPoints, setShowPoints] = useState(false);
 
 	const [mode, setMode] = useState('Jeopardy');
 	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
@@ -37,6 +36,9 @@ export default function App() {
 			soundFile.currentTime = 0;
 		}
 		setShowPoints(true);
+	}
+	const handleReset = () => {
+		setScore([]);
 	}
 	const handleSetSound = (e) => {
 		setSound(e.target.value);
@@ -88,16 +90,36 @@ export default function App() {
 				<div className="modal modal-menu">
 					
 					<div id="sound">
-					<fieldset onChange={handleSetSound}>
-						<legend>Buzz-In Sound:</legend>
-						{sounds.map((sound, index) => (
-						<label key={index}>
-							<input type="radio" id={"sound-" + sound.id} name="sound" value={sound.id} defaultChecked={sound.id === 'None'} />
-							{sound.icon}
-							<span className="hidden">{sound.id}</span>
-						</label>
-						))}
-					</fieldset>
+						<fieldset onChange={handleSetSound}>
+							<legend>Buzz-In Sound:</legend>
+							{sounds.map((sound, index) => (
+							<label key={index}>
+								<input type="radio" id={"sound-" + sound.id} name="sound" value={sound.id} defaultChecked={sound.id === 'None'} />
+								{sound.icon}
+								<span className="hidden">{sound.id}</span>
+							</label>
+							))}
+						</fieldset>
+					</div>
+
+					<div id="score-history">
+						<fieldset>
+							<legend>Score History:</legend>
+							<button className="button" onClick={handleReset}>
+								<IconReset />
+								<span>Reset</span>
+							</button>
+
+							<div id="history">
+								<ul>
+									{score.map((score, index) => (
+									<li key={index}>{score}</li>
+									))}
+								</ul>
+							</div>
+
+						</fieldset>
+
 					</div>
 
 				</div>
@@ -159,16 +181,6 @@ export default function App() {
 				</div>
 
 			</div>
-			)}
-
-			{showHistory && (
-				<div id="history">
-					<ul>
-						{score.map((score, index) => (
-						<li key={index}>{score}</li>
-						))}
-					</ul>
-				</div>
 			)}
 			
 			<button onClick={buzzIn}>Buzz In</button>

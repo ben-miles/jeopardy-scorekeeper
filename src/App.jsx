@@ -60,8 +60,6 @@ export default function App() {
 			setPossiblePoints(0);
 			setClueValue(0);
 		}
-		const pointsRadio = document.getElementsByName('points');
-		pointsRadio.forEach(point => point.checked = false);
 	}
 	const changeClueValue = (e) => {
 		setClueValue(Number(e.target.value));

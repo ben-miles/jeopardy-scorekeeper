@@ -11,24 +11,29 @@ import IconDog from './IconDog.jsx'
 import IconRobot from './IconRobot.jsx'
 
 export default function App() {
-	const modes = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
-	const sounds = [
+	const modeOptions = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
+	const [mode, setMode] = useState('Jeopardy');
+
+	const pointsOptions = [
+		[200, 400, 600, 800, 1000],
+		[400, 800, 1200, 1600, 2000]
+	];
+	const [possiblePoints, setPossiblePoints] = useState(pointsOptions[0]);
+	const [score, setScore] = useState([]);
+	const [clueValue, setClueValue] = useState(200);
+
+	const soundOptions = [
 		{ id: 'None', icon: <IconMute /> }, 
 		{ id: 'Alien', icon: <IconAlien />}, 
 		{ id: 'Cat', icon: <IconCat /> }, 
 		{ id: 'Dog', icon: <IconDog /> }, 
 		{ id: 'Robot', icon: <IconRobot /> },	
 	];
+	const [sound, setSound] = useState('None');
 	
 	const [showMenu, setShowMenu] = useState(false); 
 	const [showPoints, setShowPoints] = useState(false);
 
-	const [mode, setMode] = useState('Jeopardy');
-	const [points, setPoints] = useState([200, 400, 600, 800, 1000]);
-	
-	const [sound, setSound] = useState('None');
-	const [score, setScore] = useState([]);
-	const [thisPoints, setThisPoints] = useState(0);
 	const buzzIn = () => {
 		if (sound !== 'None') {
 			const soundFile = new Audio(sound.toLowerCase() + ".mp3");
@@ -37,26 +42,29 @@ export default function App() {
 		}
 		setShowPoints(true);
 	}
-	const handleReset = () => {
+	const resetScore = () => {
 		setScore([]);
 	}
-	const handleSetSound = (e) => {
+	const changeSound = (e) => {
 		setSound(e.target.value);
 	}
-	const handleSetMode = (e) => {
+	const changeMode = (e) => {
 		setMode(e.target.value);
 		if (e.target.value === 'Jeopardy') {
-			setPoints([200, 400, 600, 800, 1000]);
+			setPossiblePoints(pointsOptions[0]);
+			setClueValue(pointsOptions[0][0]);
 		} else if (e.target.value === 'Double Jeopardy') {
-			setPoints([400, 800, 1200, 1600, 2000]);
+			setPossiblePoints(pointsOptions[1]);
+			setClueValue(pointsOptions[1][0]);
 		} else {
-			setPoints([0]);
+			setPossiblePoints(0);
+			setClueValue(0);
 		}
 		const pointsRadio = document.getElementsByName('points');
 		pointsRadio.forEach(point => point.checked = false);
 	}
-	const handleSetPoints = (e) => {
-		setThisPoints(Number(e.target.value));
+	const changeClueValue = (e) => {
+		setClueValue(Number(e.target.value));
 	}
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
 	const handleClick = (operator) => () => {
@@ -64,7 +72,7 @@ export default function App() {
 			alert('Please select a point value');
 			return;
 		}
-		setScore(score => [...score, operator === '+' ? thisPoints : thisPoints * -1]);
+		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
 		setShowPoints(false);
 	}
 	const handleWager = (e) => {
@@ -92,16 +100,16 @@ export default function App() {
 					<div id="sound">
 						<fieldset>
 							<legend>Buzz-In Sound:</legend>
-							{sounds.map((sound, index) => (
+							{soundOptions.map((soundOption, index) => (
 							<label key={index}>
-								{sound.icon}
-								<span className="hidden">{sound.id}</span>
 								<input type="radio" 
 									id={"sound-" + soundOption.id} 
 									name="sound" 
 									value={soundOption.id} 
 									checked={soundOption.id === sound} 
 									onChange={changeSound} />
+								{soundOption.icon}
+								<span className="hidden">{soundOption.id}</span>
 							</label>
 							))}
 						</fieldset>
@@ -119,7 +127,7 @@ export default function App() {
 								</ul>
 							</div>
 
-							<button className="button" onClick={handleReset}>
+							<button className="button" onClick={resetScore}>
 								<IconReset />
 								<span>Reset</span>
 							</button>							
@@ -143,15 +151,15 @@ export default function App() {
 				<div id="mode">
 					<fieldset>
 						<legend>Mode:</legend>
-						{modes.map((mode, index) => (
+						{modeOptions.map((modeOption, index) => (
 						<label key={index}>
-							<span>{mode}</span>
 							<input type="radio" 
 								id={"mode-" + modeOption} 
 								name="mode" 
 								value={modeOption} 
 								checked={modeOption === mode} 
 								onChange={changeMode}/>
+							<span>{modeOption}</span>
 						</label>
 						))}
 					</fieldset>
@@ -159,17 +167,17 @@ export default function App() {
 
 				<div id="points">
 					{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
-						<legend>Points for this Clue:</legend>
-						{points.map((point, index) => (
 					<fieldset>
+						<legend>Value for this Clue:</legend>
+						{possiblePoints.map((possiblePoint, index) => (
 						<label key={index}>
-							<span>${point}</span>
 							<input type="radio" 
 								id={"point-" + possiblePoint} 
 								name="points" 
 								value={possiblePoint} 
 								checked={possiblePoint === clueValue}
 								onChange={changeClueValue} />
+							<span>${possiblePoint}</span>
 						</label>
 						))}
 					</fieldset>

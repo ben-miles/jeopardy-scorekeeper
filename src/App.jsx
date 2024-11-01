@@ -66,10 +66,6 @@ export default function App() {
 	}
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
 	const handleClick = (operator) => () => {
-		if (thisPoints === 0) {
-			alert('Please select a point value');
-			return;
-		}
 		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
 		setShowPoints(false);
 	}

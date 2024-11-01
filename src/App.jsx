@@ -90,13 +90,18 @@ export default function App() {
 				<div className="modal modal-menu">
 					
 					<div id="sound">
-						<fieldset onChange={handleSetSound}>
+						<fieldset>
 							<legend>Buzz-In Sound:</legend>
 							{sounds.map((sound, index) => (
 							<label key={index}>
-								<input type="radio" id={"sound-" + sound.id} name="sound" value={sound.id} defaultChecked={sound.id === 'None'} />
 								{sound.icon}
 								<span className="hidden">{sound.id}</span>
+								<input type="radio" 
+									id={"sound-" + soundOption.id} 
+									name="sound" 
+									value={soundOption.id} 
+									checked={soundOption.id === sound} 
+									onChange={changeSound} />
 							</label>
 							))}
 						</fieldset>
@@ -136,12 +141,17 @@ export default function App() {
 				</button>
 
 				<div id="mode">
-					<fieldset onChange={handleSetMode}>
+					<fieldset>
 						<legend>Mode:</legend>
 						{modes.map((mode, index) => (
 						<label key={index}>
-							<input type="radio" id={"mode-" + mode} name="mode" value={mode} defaultChecked={mode === 'Jeopardy'} />
 							<span>{mode}</span>
+							<input type="radio" 
+								id={"mode-" + modeOption} 
+								name="mode" 
+								value={modeOption} 
+								checked={modeOption === mode} 
+								onChange={changeMode}/>
 						</label>
 						))}
 					</fieldset>
@@ -149,12 +159,17 @@ export default function App() {
 
 				<div id="points">
 					{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
-					<fieldset onChange={handleSetPoints}>
 						<legend>Points for this Clue:</legend>
 						{points.map((point, index) => (
+					<fieldset>
 						<label key={index}>
-							<input type="radio" id={"point-" + point} name="points" value={point} defaultChecked={index === 0}/>
 							<span>${point}</span>
+							<input type="radio" 
+								id={"point-" + possiblePoint} 
+								name="points" 
+								value={possiblePoint} 
+								checked={possiblePoint === clueValue}
+								onChange={changeClueValue} />
 						</label>
 						))}
 					</fieldset>
@@ -162,7 +177,12 @@ export default function App() {
 					{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
 					<fieldset>
 						<legend>Your Wager:</legend>
-						<input type="number" id="wager" min="0" step="100" onChange={handleWager} />
+						<input type="number" 
+							id="wager" 
+							min="0" 
+							step="100" 
+							value={clueValue} 
+							onChange={changeClueValue} />
 					</fieldset>
 					)}
 				</div>

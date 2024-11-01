@@ -69,10 +69,6 @@ export default function App() {
 		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
 		setShowPoints(false);
 	}
-	const handleWager = (e) => {
-		setThisPoints(Number(e.target.value));
-	}
-
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
 	}

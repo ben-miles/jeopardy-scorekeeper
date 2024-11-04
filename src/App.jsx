@@ -13,41 +13,6 @@ import IconRobot from './IconRobot.jsx'
 export default function App() {
 	const modeOptions = ['Jeopardy', 'Double Jeopardy', 'Daily Double', 'Final Jeopardy'];
 	const [mode, setMode] = useState('Jeopardy');
-
-	const pointsOptions = [
-		[200, 400, 600, 800, 1000],
-		[400, 800, 1200, 1600, 2000]
-	];
-	const [possiblePoints, setPossiblePoints] = useState(pointsOptions[0]);
-	const [score, setScore] = useState([]);
-	const [clueValue, setClueValue] = useState(200);
-
-	const soundOptions = [
-		{ id: 'None', icon: <IconMute /> }, 
-		{ id: 'Alien', icon: <IconAlien />}, 
-		{ id: 'Cat', icon: <IconCat /> }, 
-		{ id: 'Dog', icon: <IconDog /> }, 
-		{ id: 'Robot', icon: <IconRobot /> },	
-	];
-	const [sound, setSound] = useState('None');
-	
-	const [showMenu, setShowMenu] = useState(false); 
-	const [showPoints, setShowPoints] = useState(false);
-
-	const buzzIn = () => {
-		if (sound !== 'None') {
-			const soundFile = new Audio(sound.toLowerCase() + ".mp3");
-			soundFile.play(); 
-			soundFile.currentTime = 0;
-		}
-		setShowPoints(true);
-	}
-	const resetScore = () => {
-		setScore([]);
-	}
-	const changeSound = (e) => {
-		setSound(e.target.value);
-	}
 	const changeMode = (e) => {
 		setMode(e.target.value);
 		if (e.target.value === 'Jeopardy') {
@@ -61,18 +26,46 @@ export default function App() {
 			setClueValue(0);
 		}
 	}
+
+	const pointsOptions = [
+		[200, 400, 600, 800, 1000],
+		[400, 800, 1200, 1600, 2000]
+	];
+	const [possiblePoints, setPossiblePoints] = useState(pointsOptions[0]);
+	const [score, setScore] = useState([]);
+	const [clueValue, setClueValue] = useState(200);
 	const changeClueValue = (e) => {
 		setClueValue(Number(e.target.value));
 	}
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
 	const handleClick = (operator) => () => {
 		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
-		setShowPoints(false);
+		showPointsModal(false);
+	}
+
+	const soundOptions = [
+		{ id: 'None', icon: <IconMute /> }, 
+		{ id: 'Alien', icon: <IconAlien />}, 
+		{ id: 'Cat', icon: <IconCat /> }, 
+		{ id: 'Dog', icon: <IconDog /> }, 
+		{ id: 'Robot', icon: <IconRobot /> },	
+	];
+	const [sound, setSound] = useState('None');
+	const [pointsModal, showPointsModal] = useState(false);
+	const changeSound = (e) => {
+		setSound(e.target.value);
+	}
+	const buzzIn = () => {
+		showPointsModal(true);
+	}
+
+	const [showMenu, setShowMenu] = useState(false); 
+	const resetScore = () => {
+		setScore([]);
 	}
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
 	}
-
 	const closeModal = () => {
 		setShowPoints(false);
 	}

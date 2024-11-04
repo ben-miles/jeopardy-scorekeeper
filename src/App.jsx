@@ -71,7 +71,7 @@ export default function App() {
 		setShowMenu(!showMenu);
 	}
 	const closeModal = () => {
-		setShowPoints(false);
+		showPointsModal(false);
 	}
 
 	return (
@@ -128,7 +128,7 @@ export default function App() {
 			
 			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
 
-			{showPoints && (
+			{pointsModal && (
 			<div className="modal points">
 				<button className="button button-modal" onClick={closeModal}>
 					<IconX />

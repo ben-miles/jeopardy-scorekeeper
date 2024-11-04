@@ -38,7 +38,7 @@ export default function App() {
 		setClueValue(Number(e.target.value));
 	}
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
-	const handleClick = (operator) => () => {
+	const changeScore = (operator) => () => {
 		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
 		showPointsModal(false);
 	}
@@ -185,11 +185,11 @@ export default function App() {
 				<div id="addsub">
 					<fieldset>
 						<legend>Your Response:</legend>
-						<button className="button" onClick={handleClick('+')}>
+						<button className="button" onClick={changeScore('+')}>
 							<IconCheckmark />
 							<span>Correct</span>
 						</button>
-						<button className="button" onClick={handleClick('-')}>
+						<button className="button" onClick={changeScore('-')}>
 							<IconX />
 							<span>Incorrect</span>
 						</button>

@@ -52,10 +52,14 @@ export default function App() {
 	];
 	const [sound, setSound] = useState('None');
 	const [pointsModal, showPointsModal] = useState(false);
+	let soundFile = new Audio(sound.toLowerCase() + ".mp3");
 	const changeSound = (e) => {
 		setSound(e.target.value);
+		soundFile = new Audio(e.target.value.toLowerCase() + ".mp3");
 	}
 	const buzzIn = () => {
+		soundFile.play();
+		soundFile.currentTime = 0;
 		showPointsModal(true);
 	}
 

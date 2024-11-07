@@ -2,7 +2,7 @@
 
 body {
 	background-color: #535bf2;
-	background-image: url('./background.png');
+	background-image: url('/background.png');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;

@@ -1,5 +1,7 @@
 # jeopardy-scorekeeper
- Play along with Jeopardy on your smartphone -- Buzz in, keep score, and compete against your friends. 
+ Play along with Jeopardy on your smartphone (or any device) -- Buzz in, keep score, and compete against your friends.
+
+[Live Demo](https://ben-miles.github.io/jeopardy-scorekeeper/)
 
 # Credits
 - Background Image: ["Blank Jeopardy Screen V2" by DrewManDew on DeviantArt](https://www.deviantart.com/drewmandew/art/Blank-Jeopardy-Screen-V2-939125799)

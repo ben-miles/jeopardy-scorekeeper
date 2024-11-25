@@ -40,7 +40,7 @@ export default function App() {
 	const sum = score.reduce((partialSum, a) => partialSum + a, 0);
 	const changeScore = (operator) => () => {
 		setScore(score => [...score, operator === '+' ? clueValue : clueValue * -1]);
-		showPointsModal(false);
+		enableScore(false);
 	}
 
 	const soundOptions = [
@@ -51,7 +51,7 @@ export default function App() {
 		{ id: 'Robot', icon: <IconRobot /> },	
 	];
 	const [sound, setSound] = useState('None');
-	const [pointsModal, showPointsModal] = useState(false);
+	const [scoringEnabled, enableScore] = useState(false);
 	let soundFile = new Audio(sound.toLowerCase() + ".mp3");
 	const changeSound = (e) => {
 		setSound(e.target.value);
@@ -60,7 +60,7 @@ export default function App() {
 	const buzzIn = () => {
 		soundFile.play();
 		soundFile.currentTime = 0;
-		showPointsModal(true);
+		enableScore(true);
 	}
 
 	const [showMenu, setShowMenu] = useState(false); 
@@ -69,9 +69,6 @@ export default function App() {
 	}
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
-	}
-	const closeModal = () => {
-		showPointsModal(false);
 	}
 
 	return (
@@ -178,11 +175,15 @@ export default function App() {
 			<div id="addsub">
 				<fieldset>
 					<legend>Your Response:</legend>
-					<button className="button" onClick={changeScore('+')}>
+					<button className="button" 
+						disabled={!scoringEnabled}
+						onClick={changeScore('+')} >
 						<IconCheckmark />
 						<span>Correct</span>
 					</button>
-					<button className="button" onClick={changeScore('-')}>
+					<button className="button" 
+						disabled={!scoringEnabled}
+						onClick={changeScore('-')} >
 						<IconX />
 						<span>Incorrect</span>
 					</button>

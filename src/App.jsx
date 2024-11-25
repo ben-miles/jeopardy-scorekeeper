@@ -128,77 +128,67 @@ export default function App() {
 			
 			<div className="score">{(sum >= 0) ? '$' + sum : '-$' + sum * -1}</div>
 
-			{pointsModal && (
-			<div className="modal points">
-				<button className="button button-modal" onClick={closeModal}>
-					<IconX />
-					<span className="hidden">Close</span>
-				</button>
-
-				<div id="mode">
-					<fieldset>
-						<legend>Mode:</legend>
-						{modeOptions.map((modeOption, index) => (
-						<label key={index}>
-							<input type="radio" 
-								id={"mode-" + modeOption} 
-								name="mode" 
-								value={modeOption} 
-								checked={modeOption === mode} 
-								onChange={changeMode}/>
-							<span>{modeOption}</span>
-						</label>
-						))}
-					</fieldset>
-				</div>
-
-				<div id="points">
-					{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
-					<fieldset>
-						<legend>Value for this Clue:</legend>
-						{possiblePoints.map((possiblePoint, index) => (
-						<label key={index}>
-							<input type="radio" 
-								id={"point-" + possiblePoint} 
-								name="points" 
-								value={possiblePoint} 
-								checked={possiblePoint === clueValue}
-								onChange={changeClueValue} />
-							<span>${possiblePoint}</span>
-						</label>
-						))}
-					</fieldset>
-					)}
-					{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
-					<fieldset>
-						<legend>Your Wager:</legend>
-						<input type="number" 
-							id="wager" 
-							min="0" 
-							step="100" 
-							value={clueValue} 
-							onChange={changeClueValue} />
-					</fieldset>
-					)}
-				</div>
-
-				<div id="addsub">
-					<fieldset>
-						<legend>Your Response:</legend>
-						<button className="button" onClick={changeScore('+')}>
-							<IconCheckmark />
-							<span>Correct</span>
-						</button>
-						<button className="button" onClick={changeScore('-')}>
-							<IconX />
-							<span>Incorrect</span>
-						</button>
-					</fieldset>
-				</div>
-
+			<div id="mode">
+				<fieldset>
+					<legend>Mode:</legend>
+					{modeOptions.map((modeOption, index) => (
+					<label key={index}>
+						<input type="radio" 
+							id={"mode-" + modeOption} 
+							name="mode" 
+							value={modeOption} 
+							checked={modeOption === mode} 
+							onChange={changeMode}/>
+						<span>{modeOption}</span>
+					</label>
+					))}
+				</fieldset>
 			</div>
-			)}
-			
+
+			<div id="points">
+				{(mode === 'Jeopardy' || mode === 'Double Jeopardy') && (
+				<fieldset>
+					<legend>Value for this Clue:</legend>
+					{possiblePoints.map((possiblePoint, index) => (
+					<label key={index}>
+						<input type="radio" 
+							id={"point-" + possiblePoint} 
+							name="points" 
+							value={possiblePoint} 
+							checked={possiblePoint === clueValue}
+							onChange={changeClueValue} />
+						<span>${possiblePoint}</span>
+					</label>
+					))}
+				</fieldset>
+				)}
+				{(mode === 'Daily Double' || mode === 'Final Jeopardy') && (
+				<fieldset>
+					<legend>Your Wager:</legend>
+					<input type="number" 
+						id="wager" 
+						min="0" 
+						step="100" 
+						value={clueValue} 
+						onChange={changeClueValue} />
+				</fieldset>
+				)}
+			</div>
+
+			<div id="addsub">
+				<fieldset>
+					<legend>Your Response:</legend>
+					<button className="button" onClick={changeScore('+')}>
+						<IconCheckmark />
+						<span>Correct</span>
+					</button>
+					<button className="button" onClick={changeScore('-')}>
+						<IconX />
+						<span>Incorrect</span>
+					</button>
+				</fieldset>
+			</div>
+
 			<button onClick={buzzIn}>Buzz In</button>
 
 		</>
